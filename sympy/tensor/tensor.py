@@ -1885,7 +1885,7 @@ def tensor_indices(s, typ):
 
     s : string of comma separated names of indices
 
-    typ : list of ``TensorIndexType`` of the indices
+    typ : ``TensorIndexType`` of the indices
 
     Examples
     ========
@@ -4188,7 +4188,6 @@ class TensMul(TensExpr):
             if not isinstance(arg, TensExpr):
                 continue
             assert isinstance(arg, Tensor)
-        pass
 
     def substitute_indices(self, *index_tuples):
         return substitute_indices(self, *index_tuples)

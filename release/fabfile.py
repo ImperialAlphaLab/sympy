@@ -543,6 +543,10 @@ def table():
     sizes_dict = {name: size for size, name in sizes}
 
     table = []
+    
+    version = get_sympy_version()
+
+    version = get_sympy_version()
 
     # http://docs.python.org/2/library/contextlib.html#contextlib.contextmanager. Not
     # recommended as a real way to generate html, but it works better than
@@ -552,6 +556,11 @@ def table():
         table.append("<%s>" % name)
         yield
         table.append("</%s>" % name)
+    @contextmanager
+    def a_href(link):
+        table.append("<a href=\"%s\">" % link)
+        yield
+        table.append("</a>")
 
     with tag('table'):
         with tag('tr'):
@@ -563,8 +572,9 @@ def table():
             name = get_tarball_name(key)
             with tag('tr'):
                 with tag('td'):
-                    with tag('b'):
-                        table.append(name)
+                    with a_href('https://github.com/sympy/sympy/releases/download/sympy-%s/%s' %(version,name)):
+                        with tag('b'):
+                            table.append(name)
                 with tag('td'):
                     table.append(descriptions[key].format(**tarball_formatter_dict))
                 with tag('td'):
